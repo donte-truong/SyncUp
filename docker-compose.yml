@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./syncup.db
+      - GOOGLE_REDIRECT_URI=http://localhost:8000/google/auth/callback
+      - FRONTEND_URL=http://localhost:3000
+      - OPENAI_API_KEY
+      - GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET
+    volumes:
+      - ./backend:/app/backend
+      - ./backend/syncup.db:/app/backend/syncup.db
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
