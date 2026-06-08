@@ -1,2 +1,12 @@
 fastapi
 uvicorn[standard]
+sqlmodel
+python-dotenv
+google-auth
+google-auth-oauthlib
+google-api-python-client
+oauthlib
+openai>=1.0.0
+requests
+pydantic-settings
+pydantic[email]
